@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google Photos Remover — Open-Source Chrome Extension</title>
+    <meta
+      name="description"
+      content="Bulk-delete your Google Photos library with a transparent, open-source Chrome extension you can audit and install yourself."
+    />
+    <style>
+      :root {
+        --bg: #f8f9fa;
+        --fg: #1a1a1a;
+        --accent: #1a73e8;
+        --accent-hover: #1557b0;
+        --card: #ffffff;
+        --muted: #5f6368;
+        --border: #dadce0;
+        --code-bg: #f1f3f4;
+        --warning-bg: #fef7e0;
+        --warning-border: #f9ab00;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1e1f20;
+          --fg: #e8eaed;
+          --card: #292a2d;
+          --muted: #9aa0a6;
+          --border: #3c4043;
+          --code-bg: #303134;
+          --warning-bg: #3e2e00;
+          --warning-border: #f9ab00;
+        }
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        line-height: 1.6;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 64px 0 48px;
+      }
+      .hero h1 {
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .hero .tagline {
+        font-size: 1.15rem;
+        color: var(--muted);
+        max-width: 540px;
+        margin: 0 auto 32px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background 0.15s;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--accent-hover);
+        text-decoration: none;
+      }
+      .btn-secondary {
+        background: var(--code-bg);
+        color: var(--fg);
+        margin-left: 12px;
+      }
+      .btn-secondary:hover {
+        background: var(--border);
+        text-decoration: none;
+      }
+
+      /* Sections */
+      section {
+        padding: 48px 0;
+        border-top: 1px solid var(--border);
+      }
+      section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+      section h3 {
+        font-size: 1.1rem;
+        margin: 24px 0 8px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 16px;
+      }
+      .features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 560px) {
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+      .feature-icon {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+      }
+      .feature-title {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .feature-desc {
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+      ol,
+      ul {
+        padding-left: 24px;
+        margin: 12px 0;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      code {
+        background: var(--code-bg);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      pre {
+        background: var(--code-bg);
+        padding: 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.9rem;
+        margin: 12px 0;
+      }
+      .warning {
+        background: var(--warning-bg);
+        border-left: 4px solid var(--warning-border);
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        margin: 16px 0;
+        font-size: 0.92rem;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 32px 0;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Hero -->
+      <header class="hero">
+        <h1>Google Photos Remover</h1>
+        <p class="tagline">
+          An open-source Chrome extension to bulk-delete your entire Google
+          Photos library. No store listing, no tracking, no trust issues — read
+          the code and install it yourself.
+        </p>
+        <a
+          href="https://github.com/AlexxIT/google-photos-remover/archive/refs/heads/master.zip"
+          class="btn btn-primary"
+          >Download ZIP</a
+        >
+        <a
+          href="https://github.com/AlexxIT/google-photos-remover"
+          class="btn btn-secondary"
+          >View Source</a
+        >
+      </header>
+
+      <!-- Why -->
+      <section>
+        <h2>Why this exists</h2>
+        <p>
+          I needed to wipe a Google Photos library but didn't trust the
+          extensions already on the Chrome Web Store. They ask for broad
+          permissions and you can't see what they actually do with your data.
+        </p>
+        <p style="margin-top: 12px">
+          So I built my own. It's <strong>~200 lines of JavaScript</strong>,
+          fully open-source, with zero dependencies. You can read every line
+          before you install it. It is deliberately
+          <strong>not published to the Chrome Web Store</strong> because I don't
+          want to maintain a store listing — and because the whole point is that
+          you install it yourself after reviewing the code.
+        </p>
+      </section>
+
+      <!-- Features -->
+      <section>
+        <h2>Features</h2>
+        <div class="features">
+          <div class="card">
+            <div class="feature-icon">🔓</div>
+            <div class="feature-title">Fully transparent</div>
+            <div class="feature-desc">
+              100% open source. Read the code, fork it, modify it.
+            </div>
+          </div>
+          <div class="card">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-title">Batch deletion</div>
+            <div class="feature-desc">
+              Selects and deletes up to 500 photos at a time. Fast.
+            </div>
+          </div>
+          <div class="card">
+            <div class="feature-icon">🔒</div>
+            <div class="feature-title">Minimal permissions</div>
+            <div class="feature-desc">
+              Only runs on <code>photos.google.com</code>. No background
+              tracking.
+            </div>
+          </div>
+          <div class="card">
+            <div class="feature-icon">🛑</div>
+            <div class="feature-title">Stop any time</div>
+            <div class="feature-desc">
+              One-click Start/Stop. Items go to Trash first — not permanently
+              gone.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Install -->
+      <section id="install">
+        <h2>How to install</h2>
+        <ol>
+          <li>
+            <a
+              href="https://github.com/AlexxIT/google-photos-remover/archive/refs/heads/master.zip"
+              >Download the ZIP</a
+            >
+            and unzip it (or <code>git clone</code> the repo).
+          </li>
+          <li>
+            Open <code>chrome://extensions</code> in Chrome (or any
+            Chromium-based browser).
+          </li>
+          <li>Enable <strong>Developer mode</strong> (toggle in the top-right).</li>
+          <li>
+            Click <strong>Load unpacked</strong> and select the unzipped folder.
+          </li>
+          <li>
+            The extension icon appears in your toolbar. You're done.
+          </li>
+        </ol>
+        <div class="warning">
+          <strong>Note:</strong> Chrome will show a warning about developer-mode
+          extensions on startup. That's normal for unpacked extensions — just
+          dismiss it.
+        </div>
+      </section>
+
+      <!-- Usage -->
+      <section>
+        <h2>How to use</h2>
+        <ol>
+          <li>
+            Go to
+            <a href="https://photos.google.com" target="_blank" rel="noopener"
+              >photos.google.com</a
+            >
+            and wait for the photo grid to load.
+          </li>
+          <li>Click the extension icon in the toolbar to open the popup.</li>
+          <li>
+            Click <strong>Start</strong>. The extension will begin selecting
+            photos in batches of 500 and deleting them.
+          </li>
+          <li>
+            The popup shows a live count of deleted items. Click
+            <strong>Stop</strong> at any time.
+          </li>
+        </ol>
+        <div class="warning">
+          <strong>Warning:</strong> Deleted items are moved to Google Photos
+          Trash, which auto-empties after 60 days. If you want them gone
+          immediately, empty the Trash manually.
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section>
+        <h2>How it works</h2>
+        <p>The extension injects a content script into Google Photos pages that:</p>
+        <ol>
+          <li>Finds visible photo/video tiles in the grid.</li>
+          <li>Clicks each tile's selection checkbox (up to 500 per batch).</li>
+          <li>Clicks the <strong>Delete</strong> button in the toolbar.</li>
+          <li>Confirms the <em>"Move to trash"</em> dialog.</li>
+          <li>Waits for the grid to refresh, then repeats.</li>
+        </ol>
+        <p style="margin-top: 12px">
+          That's it — no network requests, no external servers, no analytics.
+          Everything happens locally in your browser tab.
+        </p>
+      </section>
+
+      <!-- FAQ -->
+      <section>
+        <h2>FAQ</h2>
+        <h3>Why isn't this on the Chrome Web Store?</h3>
+        <p>
+          Because the whole point is transparency. I don't want to maintain a
+          store listing and I don't want you to blindly trust a store extension.
+          Install it from source.
+        </p>
+
+        <h3>Is it safe?</h3>
+        <p>
+          Read the code — it's short. The extension only has permission to run on
+          <code>photos.google.com</code> and does nothing else. It never sends
+          data anywhere.
+        </p>
+
+        <h3>It stopped deleting / selectors broke</h3>
+        <p>
+          Google Photos updates its DOM from time to time. If the extension stops
+          working, the CSS selectors in <code>content.js</code> may need
+          updating. Open an issue or submit a PR.
+        </p>
+
+        <h3>Can I recover deleted photos?</h3>
+        <p>
+          Yes — items go to Google Photos Trash and stay there for 60 days before
+          being permanently deleted.
+        </p>
+      </section>
+
+      <footer>
+        <p>
+          Open source on
+          <a href="https://github.com/AlexxIT/google-photos-remover">GitHub</a>.
+          No warranty. Use at your own risk.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
