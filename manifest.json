@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Google Photos Remover",
+  "version": "1.0.0",
+  "description": "Bulk delete photos from Google Photos with a single click.",
+  "permissions": ["scripting", "activeTab", "storage"],
+  "host_permissions": ["https://photos.google.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Google Photos Remover"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://photos.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
