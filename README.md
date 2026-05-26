@@ -7,7 +7,7 @@ Store — they ask for broad permissions and you can't see what they do with you
 data. This one is ~200 lines of JavaScript, fully open-source, with zero
 dependencies. Read every line before you install it.
 
-**GitHub:** https://github.com/AlexxIT/google-photos-remover
+**GitHub:** https://github.com/lex-aristov/google-photos-remover
 
 > **Warning:** This permanently removes items (they go to Trash, which empties
 > after 60 days). Use at your own risk. Test on a throwaway/secondary account
