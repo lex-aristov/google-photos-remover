@@ -2,6 +2,13 @@
 
 A Chrome extension that bulk-deletes photos from your Google Photos library.
 
+I created this because I didn't trust the existing extensions on the Chrome Web
+Store — they ask for broad permissions and you can't see what they do with your
+data. This one is ~200 lines of JavaScript, fully open-source, with zero
+dependencies. Read every line before you install it.
+
+**GitHub:** https://github.com/AlexxIT/google-photos-remover
+
 > **Warning:** This permanently removes items (they go to Trash, which empties
 > after 60 days). Use at your own risk. Test on a throwaway/secondary account
 > first.

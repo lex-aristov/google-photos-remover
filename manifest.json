@@ -2,7 +2,8 @@
   "manifest_version": 3,
   "name": "Google Photos Remover",
   "version": "1.0.0",
-  "description": "Bulk delete photos from Google Photos with a single click.",
+  "description": "Bulk delete photos from Google Photos. Open-source, no tracking, no store — built because I didn't trust existing extensions. Read the code yourself.",
+  "homepage_url": "https://github.com/AlexxIT/google-photos-remover",
   "permissions": ["scripting", "activeTab", "storage"],
   "host_permissions": ["https://photos.google.com/*"],
   "action": {
